@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="AI product marketing studio and customer sentiment dashboard.">
+  <title>MarketPulse AI — Marketing & Sentiment Studio</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="MarketPulse home"><span class="brand-mark">✦</span><span>MarketPulse <small>AI STUDIO</small></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <button class="nav-link active" data-view="marketing"><span>◈</span> Product Studio</button>
+      <button class="nav-link" data-view="sentiment"><span>▥</span> Sentiment Dashboard</button>
+      <button class="nav-link" data-view="admin"><span>⚙</span> Admin overview</button>
+      <div class="sidebar-bottom">
+        <div class="plan-card"><span class="plan-dot"></span><b>Local demo mode</b><p>Analysis runs in your browser. Connect an AI backend for generative features.</p></div>
+        <button id="installBtn" class="install-btn" hidden>＋ Install app</button>
+        <div class="sidebar-foot">MARKETPULSE AI · v1.0</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn" aria-label="Open navigation">☰</button>
+        <div><div class="eyebrow" id="topEyebrow">CREATIVE WORKSPACE</div><h1 id="pageTitle">Product Marketing Studio</h1></div>
+        <div class="top-actions">
+          <select id="languageSelect" aria-label="Language">
+            <option value="en">English</option><option value="hi">हिन्दी</option><option value="or">ଓଡ଼ିଆ</option>
+          </select>
+          <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">☼</button>
+          <div class="avatar" title="Demo administrator">S</div>
+        </div>
+      </header>
+
+      <section class="view active" id="marketingView">
+        <div class="hero-strip"><div><span class="pill">✦ GENERATIVE CREATIVE WORKFLOW</span><h2>One product. Endless possibilities.</h2><p>Keep your product recognizable while exploring new campaign environments.</p></div><div class="hero-art">✧</div></div>
+        <div class="section-heading"><div><h2>Product visualizer</h2><p>Upload a product image, choose a scene, and create a campaign concept.</p></div><span class="soft-tag">Nano Banana ready</span></div>
+        <div class="studio-grid">
+          <div class="panel">
+            <h3>01 · Your product</h3>
+            <label class="upload-zone" for="productImage"><span class="upload-icon">↑</span><b>Drop an image here or browse</b><small>PNG, JPG, WEBP · Best with a clear product photo</small><img id="productPreview" alt="Uploaded product preview" hidden></label>
+            <input type="file" id="productImage" accept="image/png,image/jpeg,image/webp" hidden>
+            <label class="field-label" for="productName">Product name</label><input class="text-input" id="productName" placeholder="e.g. Aurora insulated bottle">
+            <label class="field-label" for="brandNotes">Brand / consistency notes</label><textarea id="brandNotes" class="text-area" rows="3" placeholder="Keep the exact logo, colors, shape, proportions and packaging..."></textarea>
+            <div class="hint">Tip: use a clean, front-facing product image for the strongest reference.</div>
+          </div>
+          <div class="panel">
+            <h3>02 · Choose marketing scenes</h3>
+            <div class="scene-grid">
+              <label class="scene-option"><input type="checkbox" value="Coffee mug" checked><span class="scene-emoji">☕</span><b>Coffee mug</b><small>Branded merchandise</small></label>
+              <label class="scene-option"><input type="checkbox" value="T-shirt" checked><span class="scene-emoji">👕</span><b>T-shirt</b><small>Apparel mockup</small></label>
+              <label class="scene-option"><input type="checkbox" value="Billboard" checked><span class="scene-emoji">▰</span><b>Billboard</b><small>Outdoor campaign</small></label>
+              <label class="scene-option"><input type="checkbox" value="Product packaging"><span class="scene-emoji">▣</span><b>Packaging</b><small>Retail shelf concept</small></label>
+              <label class="scene-option"><input type="checkbox" value="Social media post"><span class="scene-emoji">▧</span><b>Social post</b><small>Digital campaign</small></label>
+              <label class="scene-option"><input type="checkbox" value="Retail display"><span class="scene-emoji">▤</span><b>Retail display</b><small>In-store promotion</small></label>
+            </div>
+            <label class="field-label" for="visualStyle">Visual direction</label>
+            <select class="text-input" id="visualStyle"><option>Premium studio photography</option><option>Minimal and modern</option><option>Bold lifestyle advertising</option><option>Natural and sustainable</option><option>Luxury editorial</option></select>
+            <button class="primary-btn full" id="generateBtn">✦ Generate campaign concepts</button>
+            <p class="hint">Demo mode creates branded concept previews. Connect a secure image-generation backend for real AI renders.</p>
+          </div>
+        </div>
+        <div class="section-heading results-heading"><div><h2>Campaign concepts</h2><p id="campaignStatus">Your generated scenes will appear here.</p></div><button class="secondary-btn" id="downloadCampaign" disabled>↓ Export report</button></div>
+        <div class="campaign-grid" id="campaignGrid"><div class="empty-state"><span>✧</span><b>Your creative canvas is ready</b><p>Upload a product and generate your first campaign.</p></div></div>
+      </section>
+
+      <section class="view" id="sentimentView">
+        <div class="hero-strip sentiment-hero"><div><span class="pill">◉ CUSTOMER INTELLIGENCE</span><h2>Listen to every customer.</h2><p>Turn unstructured feedback into clear, prioritized actions.</p></div><div class="hero-art">⌁</div></div>
+        <div class="section-heading"><div><h2>Review analysis</h2><p>Paste reviews or import a CSV. One review per line; optionally add a date before a comma.</p></div><span class="soft-tag" id="reviewCountTag">0 reviews loaded</span></div>
+        <div class="panel input-panel">
+          <div class="input-toolbar"><b>Customer reviews</b><div><button class="text-btn" id="sampleBtn">Load sample data</button><label class="text-btn file-label" for="csvInput">↑ Import CSV</label><input id="csvInput" type="file" accept=".csv,.txt" hidden></div></div>
+          <textarea id="reviewsInput" class="reviews-input" placeholder="Paste customer reviews here, one review per line...&#10;&#10;Example: The delivery was fast and the product quality is excellent!&#10;2026-10-14, Customer support took three days to respond."></textarea>
+          <div class="input-footer"><span id="inputCount">0 lines</span><button class="primary-btn" id="analyzeBtn">Analyze customer feedback →</button></div>
+        </div>
+        <div class="metrics-grid" id="metricsGrid">
+          <div class="metric-card"><span>Overall sentiment</span><strong id="overallMetric">—</strong><small id="overallCaption">Run an analysis to begin</small></div>
+          <div class="metric-card"><span>Positive reviews</span><strong id="positiveMetric">—</strong><small>Share of total reviews</small></div>
+          <div class="metric-card"><span>Negative reviews</span><strong id="negativeMetric">—</strong><small>Share of total reviews</small></div>
+          <div class="metric-card"><span>Total analyzed</span><strong id="totalMetric">0</strong><small>Reviews in this report</small></div>
+        </div>
+        <div class="analytics-grid">
+          <div class="panel chart-panel"><div class="panel-title"><div><h3>Sentiment trend</h3><p>Positive vs. negative review volume by date</p></div><span class="chart-legend"><i></i> Positive <i class="negative-dot"></i> Negative</span></div><div class="chart-wrap"><canvas id="trendChart" aria-label="Sentiment trend chart"></canvas><div class="chart-empty" id="chartEmpty">Analyze reviews to see the trend.</div></div></div>
+          <div class="panel"><div class="panel-title"><div><h3>Customer voice</h3><p>Frequent themes in your reviews</p></div></div><div class="word-cloud" id="wordCloud"><span class="cloud-placeholder">Your review themes will appear here.</span></div><div class="cloud-key"><span class="positive-key">● Praise</span><span class="negative-key">● Complaints</span></div></div>
+        </div>
+        <div class="panel summary-panel"><div class="panel-title"><div><span class="pill">✦ AI-STYLE INSIGHTS</span><h3>Executive summary</h3><p>Three prioritized opportunities based on recurring feedback.</p></div><button class="secondary-btn" id="exportCsvBtn" disabled>↓ Export CSV</button></div><div id="summaryContent" class="summary-content"><div class="empty-state compact"><span>✧</span><b>Insights are waiting</b><p>Analyze a batch of reviews to generate your executive summary.</p></div></div></div>
+      </section>
+
+      <section class="view" id="adminView">
+        <div class="hero-strip"><div><span class="pill">⚙ WORKSPACE SETTINGS</span><h2>Admin overview</h2><p>A static demonstration of workspace controls and product health.</p></div><div class="hero-art">⌘</div></div>
+        <div class="metrics-grid admin-metrics"><div class="metric-card"><span>Workspace status</span><strong class="status-text">Active</strong><small>Local demo environment</small></div><div class="metric-card"><span>AI provider</span><strong>Not connected</strong><small>Configure server endpoint</small></div><div class="metric-card"><span>Data storage</span><strong>Browser only</strong><small>No cloud sync enabled</small></div><div class="metric-card"><span>App version</span><strong>1.0.0</strong><small>Static PWA build</small></div></div>
+        <div class="panel settings-panel"><h3>AI backend connection</h3><p>Optional. Enter your own server endpoint. Never put a private API key in this public GitHub Pages app.</p><label class="field-label" for="apiEndpoint">Backend API base URL</label><input class="text-input" id="apiEndpoint" placeholder="https://your-server.example.com/api"><button class="primary-btn" id="saveEndpoint">Save endpoint locally</button><p class="hint" id="endpointStatus">No endpoint configured.</p></div>
+        <div class="panel settings-panel"><h3>Deployment checklist</h3><ul class="check-list"><li>✓ Static GitHub Pages compatible</li><li>✓ Responsive layout and PWA manifest</li><li>✓ Local sentiment analysis and CSV export</li><li>○ Connect secure AI image generation service</li><li>○ Add authentication and database for production admin controls</li></ul></div>
+      </section>
+      <footer class="footer">MarketPulse AI <span>Built for clearer campaigns and better customer experiences.</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
